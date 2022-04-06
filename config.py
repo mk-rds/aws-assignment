@@ -1,6 +1,6 @@
-customhost = "employee.crvpc5j2hgjs.us-east-1.rds.amazonaws.com"
+customhost = "employee.cvodm9afoekj.us-east-1.rds.amazonaws.com"
 customuser = "aws_user"
 custompass = "bait3273"
 customdb = "employee"
-custombucket = "leehanshen-bucket"
+custombucket = "tanmingkit-bucket"
 customregion = "us-east-1"
