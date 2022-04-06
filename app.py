@@ -7,21 +7,21 @@ from config import *
 app = Flask(__name__)
 app.secret_key = "magiv"
 
-# bucket = custombucket
-# region = customregion
+bucket = custombucket
+region = customregion
 
-# db_conn = connections.Connection(
-#     host=customhost,
-#     port=3306,
-#     user=customuser,
-#     password=custompass,
-#     db=customdb
+db_conn = connections.Connection(
+    host=customhost,
+    port=3306,
+    user=customuser,
+    password=custompass,
+    db=customdb
 
-# )
+)
 
-# output = {}
-# table = 'employee','attendance'
-# cursor = db_conn.cursor()
+output = {}
+table = 'employee','attendance'
+cursor = db_conn.cursor()
 
 date = datetime.utcnow()
 now= date.strftime("%A, %d %B, %Y at %H:%M")
@@ -195,4 +195,4 @@ def CalpayRoll():
 
 # RMB TO CHANGE PORT NUMBER
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True) # or setting host to '0.0.0.0'
+    app.run(host='0.0.0.0', port=80, debug=True) # or setting host to '0.0.0.0'
