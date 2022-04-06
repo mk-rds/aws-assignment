@@ -47,8 +47,9 @@ def addEmp():
     return render_template("AddEmp.html",date=datetime.now())
 
 #EMPLOYEE OUTPUT
-@app.route("/addemp/results",methods=['POST','GET'])
+@app.route("/addemp/results",methods=['GET','POST'])
 def Emp():
+
     emp_id = request.form['emp_id']
     first_name = request.form['first_name']
     last_name = request.form['last_name']
