@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='AddEmp.css')}}" />
+	<title>Add Employee Information</title>
+</head>
+<body>
+	<div class="navbar">
+		<div class="navbar-left">
+			<a href="/addemp/">
+				<img src="{{ url_for('static', filename='img/database.png')}}"/>
+			</a>
+		</div>
+		<div class="navbar-middle">
+			<a href="/addemp/">
+				<p>Add Employees</p>
+			</a>
+			<a href="/getemp/">
+				<p>Get Employees</p>
+			</a>
+			<a href="/attendance/">
+				<p>Attendance</p>
+			</a>
+			<a href="/payroll/">
+				<p>Payroll Calculator</p>
+			</a>
+		</div>
+		<div class="navbar-right"></div>
+		{{ date.strftime("%A, %d %B, %Y at %X") }}
+	</div>
+	
+	<!--<button type="submit" formaction="/getemp" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GET EMPLOYEE INFORMATION</button><br><br> -->
+	<div class="form-container">
+		<!-- Add back action="/addemp and id="form-add"" -->
+		<form autocomplete="on" method="POST" enctype="multipart/form-data" class="form-bubble">
+			<div class="form-bubble-container">
+				<label for="emp_id">Employee ID</label>
+				<input type="number" name="emp_id" autofocus placeholder="Employee ID">
+				<img src="{{ url_for('static', filename='img/id.png')}}" class="input-icons">
+			</div>
+			<div class="form-bubble-container">
+				<label for="first_name">First Name</label>
+				<input type="text" name="first_name" autofocus placeholder="First Name">
+				<img src="{{ url_for('static', filename='img/profile.png')}}" class="input-icons">
+			</div>
+			<div class="form-bubble-container">
+				<label for="last_name">Last Name</label>
+				<input type="text" name="last_name" autofocus placeholder="Last Name">
+				<img src="{{ url_for('static', filename='img/profile.png')}}" class="input-icons">
+			</div>
+			<div class="form-bubble-container">
+				<label for="pri_skill">Primary Skill</label>
+				<input type="text" name="pri_skill" autofocus placeholder="Primary Skill">
+				<img src="{{ url_for('static', filename='img/bag.png')}}" class="input-icons">
+			</div>
+			<div class="form-bubble-container">
+				<label for="location">Location</label>
+				<input type="text" name="location" autofocus placeholder="Location">
+				<img src="{{ url_for('static', filename='img/location.png')}}" class="input-icons">
+			</div>
+			<div class="form-bubble-container">
+				<label for="emp_image_file">Image</label>
+				<input type="file" name="emp_image_file" class="custom-file-input" autofocus multiple="multiple">
+			</div>
+		</form>
+		<div class="button-container">
+			<a href="/addemp/results">
+				<button type="submit" class="form-button">ADD EMPLOYEE</button>
+			</a>
+		</div>
+	</div>
+</body>
+</html>

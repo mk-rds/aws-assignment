@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='AddEmp.css')}}" />
+	<title>Add Employee Success Screen</title>
+</head>
+<body>
+	<div class="navbar">
+		<div class="navbar-left">
+			<a href="/addemp/">
+				<img src="{{ url_for('static', filename='img/database.png')}}"/>
+			</a>
+		</div>
+		<div class="navbar-middle">
+			<a href="/addemp/">
+				<p>Add Employees</p>
+			</a>
+			<a href="/getemp/">
+				<p>Get Employees</p>
+			</a>
+			<a href="/attendance/">
+				<p>Attendance</p>
+			</a>
+			<a href="/payroll/">
+				<p>Payroll Calculator</p>
+			</a>
+		</div>
+		<div class="navbar-right"></div>
+	
+	</div>
+</div>
+	<div class="form-container form-container-add">
+		<div class="form-bubble body-container">
+			<h1>Employee successfully added</h1>
+			<h2>Following Employee has been added to the database</h2>
+			<h3>{{ name }}</h3>
+		</div>
+		<div class="button-container">
+			<a href="/addemp">
+				<button class="form-button">GO BACK</button>
+			</a>
+		</div>
+	</div>
+</body>
+</html>

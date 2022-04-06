@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='AddEmp.css')}}" />
+	<title>Get Employee Attendance</title>
+</head>
+<body>
+	<div class="navbar">
+		<div class="navbar-left">
+			<a href="/addemp/">
+				<img src="{{ url_for('static', filename='img/database.png')}}"/>
+			</a>
+		</div>
+		<div class="navbar-middle">
+			<a href="/addemp/">
+				<p>Add Employees</p>
+			</a>
+			<a href="/getemp/">
+				<p>Get Employees</p>
+			</a>
+			<a href="/attendance/">
+				<p>Attendance</p>
+			</a>
+			<a href="/payroll/">
+				<p>Payroll Calculator</p>
+			</a>
+		</div>
+		<div class="navbar-right"></div>
+		{{ date.strftime("%A, %d %B, %Y at %H:%M") }}
+	</div>
+</div>
+	<div class="form-container form-container-get">
+		<form action="/attendance/" autocomplete="on" method="POST" class="form-bubble">
+		<div class="form-bubble-container">
+			<label>Employee ID:</label>
+			<input type="number" name="emp_id" autofocus size="40">
+		</div>
+		</form>
+		<div class="button-container">
+		<a href="/attendance/output">
+			<button type="submit" class="form-button">CHECK IN</button>
+		</a>
+		</div>
+	</div>
+	
+	{%if headings%}
+	<table>
+		<tr>
+			{%for header in headings%}
+			<th>{{header}}</th>
+			{%endfor%}
+		</tr>
+		{%for row in data%}
+		<tr>
+			{%for cell in row%}
+			<td>{{cell}}</td>
+		{%endfor%}
+		</tr>
+		{%endfor%}
+	</table>
+	{%endif%}
+</body>
+</html>

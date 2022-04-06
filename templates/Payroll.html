@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='AddEmp.css')}}" />
+	<title>Payroll Calculator</title>
+</head>
+<body>
+	<div class="navbar">
+		<div class="navbar-left">
+			<a href="/addemp/">
+				<img src="{{ url_for('static', filename='img/database.png')}}"/>
+			</a>
+		</div>
+		<div class="navbar-middle">
+			<a href="/addemp/">
+				<p>Add Employees</p>
+			</a>
+			<a href="/getemp/">
+				<p>Get Employees</p>
+			</a>
+			<a href="/attendance/">
+				<p>Attendance</p>
+			</a>
+			<a href="/payroll/">
+				<p>Payroll Calculator</p>
+			</a>
+		</div>
+		<div class="navbar-right"></div>
+		{{ date.strftime("%A, %d %B, %Y at %X") }}
+	</div>
+</div>
+	<div class="form-container form-container-get">
+		<form action="/payroll/results" autocomplete="on" method="POST" class="form-bubble">
+		<div class="form-bubble-container">
+			<label>Employee ID:</label>
+			<input type="number" name="emp_id" autofocus size="40">
+			<label>Working Hours Per Week:</label>
+			<input type="number" name="hour" autofocus size="40">
+			<label>Hourly Salary Rate:</label>
+			<input type="number" name="basic" autofocus size="40">
+			<label>Working Day Per Week:</label>
+			<input type="number" name="days" autofocus size="40">
+		</div>
+		
+		</form>
+		{%if Bonus%}
+		<p>Bonus</p>{{Bonus}}
+		
+		{%else%}
+		<p>Nothing</p>
+		{%endif%}
+		<div class="button-container">
+		<a href="/payroll/results">
+			<button type="submit" value="submit" class="form-button">CALCULATE PAYROLL</button>
+		</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='AddEmp.css')}}" />
+	<title>Employee Payroll Information</title>
+</head>
+<body>
+	<div class="navbar">
+		<div class="navbar-left">
+			<a href="/addemp/">
+				<img src="{{ url_for('static', filename='img/database.png')}}"/>
+			</a>
+		</div>
+		<div class="navbar-middle">
+			<a href="/addemp/">
+				<p>Add Employees</p>
+			</a>
+			<a href="/getemp/">
+				<p>Get Employees</p>
+			</a>
+			<a href="/attendance/">
+				<p>Attendance</p>
+			</a>
+			<a href="/payroll/">
+				<p>Payroll Calculator</p>
+			</a>
+		</div>
+		<div class="navbar-right"></div>
+		{{ date.strftime("%A, %d %B, %Y at %X") }}
+	</div>
+</div>
+		<div class="form-container form-container-payroll">
+			<div class="form-bubble">
+				<div class="form-bubble-container form-bubble-container-get">
+					<p>Working Hours</p>
+					<p>{{WorkingHours}}</p>
+				</div>
+				<div class="form-bubble-container form-bubble-container-get">
+					<p>Monthly Salary</p>
+					<p>{{MonthlySalary}}</p>
+				</div>
+				<div class="form-bubble-container form-bubble-container-get">
+					<p>Annual Salary</p>
+					<p>{{AnnualSalary}}</p>
+				</div>
+				<div class="form-bubble-container form-bubble-container-get">
+					<p>Bonus</p>
+					<p>{{Bonus}}</p>
+				</div>
+			</div>
+			<div class="button-container">
+				<a href="/payroll/">
+					<button type="submit" class="form-button">GO BACK</button>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+html {
+	background-color: white;
+	font-family: 'Lato', sans-serif;
+}
+
+body {
+	padding: 5px;
+	display: flex;
+	flex-direction: column;
+}
+
+.navbar {
+	display: flex;
+	/*background-color: red;*/
+	height: 60px;
+}
+
+.navbar-left {
+	flex: 20%;
+/*	background-color: blue; */
+}
+
+.navbar-left a {
+	display: flex;
+	align-items: center;
+	justify-content: start;
+}
+
+.navbar-left img {
+	height: 15%;
+	width: 15%;
+	object-fit: contain;
+	margin: 0 200px 0 0;
+}
+
+.navbar-left img:hover {
+	cursor: pointer;
+}
+
+.navbar-middle {
+	display: flex;
+	flex: 60%;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.navbar-middle a {
+	color: black;
+	text-decoration: none;
+}
+
+.navbar-middle p {
+	font-size: 17px;
+	text-align: center;
+	font-weight: 500;
+}
+
+.navbar-middle p:hover {
+	cursor:pointer;
+}
+
+.navbar-right {
+	flex: 20%;
+	/*background-color: pink; */
+}
+
+/* Hide arrow increment on number Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.form-container {
+	margin: 20px 0 0 0;
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	height: 75vh;
+	background-color: #eceff4; 
+	border-radius: 15px;
+	align-self: center;
+	padding: 20px;
+}
+
+.form-bubble {
+	background-color: #ffffff;
+	border-radius: 15px;
+	padding: 15px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.form-bubble-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex: 50%;
+	align-items: center;
+	margin: 10px 0;
+}
+
+.form-bubble label {
+	font-size: 16px;
+	font-weight: bold;
+	margin: 0 0 8px 0;
+}
+
+.form-bubble input {
+	padding: 5px 10px;
+	font-size: 13px;
+	width: 80%;
+	border-color: #f0f1f2;
+	background-color: #f6f6f6;
+	border-style: solid;
+	border-radius: 8px;
+	outline: none;
+	height: 30px;
+}
+
+.form-bubble input:focus {
+	border-color: #3897f0;
+	transition: 0.5s;
+}
+
+.input-icons {
+	position: absolute;
+	right: 35px;
+	top: 55%;
+	width: 18px;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+	visibility: hidden;
+}
+.custom-file-input::before {
+	content: 'Upload Image';
+	color: #707070;
+	display: inline-block;
+	background-color: #f6f6f6; 
+	outline: none;
+	white-space: nowrap;
+	user-select: none;
+	cursor: pointer;
+	line-height: 30px;
+	padding-right: 14px;
+}
+.custom-file-input:hover::before {
+	border-color: black;
+}
+.custom-file-input:active::before {
+ 	background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.button-container {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-self: center;
+	width: auto;
+	background-color: #ffffff;
+	border-radius: 0 0 10px 10px;
+	padding: 10px;
+	margin: -10px 0 0 0;
+}
+
+.button-container::before {
+  content: "";
+  position: absolute;
+  background-color: transparent;
+  left: -30px;
+  height: 50px;
+  width: 30px;
+  border-top-right-radius: 22px;
+  box-shadow: 0 -20px 0 0 white;
+}
+
+.button-container::after {
+  content: "";
+  position: absolute;
+  background-color: transparent;
+  right: -30px;
+  height: 50px;
+  width: 30px;
+  border-top-left-radius: 22px;
+  box-shadow: 0 -20px 0 0 white;
+}
+
+.form-button {
+	background-color: #0D75FD;
+	border: 0px;
+	border-radius: 10px;
+	color: white;
+	font-size: 14px;
+	padding: 10px 60px;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+}
+
+/* ADD EMP OUTPUT*/
+
+.form-container-add {
+	height: 30vh;
+}
+
+.body-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.body-container h1,h2,h3{
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+	margin: 0 0 20px 0;
+}
+
+.form-bubble-container-get {
+	text-align: center;
+	font-weight: 400;
+}
+
+.form-bubble-container-get p{
+	margin: 0 0 10px 0;
+}
+
+.form-container-get {
+	height: 22vh;
+}
+
+.form-container-get-output {
+	height: 40vh;
+}
+
+.form-container-attendance {
+	height: 30vh;
+}
+
+.form-container-payroll {
+	height: 32vh;
+}
