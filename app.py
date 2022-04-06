@@ -3,7 +3,7 @@ from flask import Flask, redirect,render_template,request
 from datetime import datetime, timedelta
 from pymysql import connections
 from config import *
-import boto3
+
 
 app = Flask(__name__)
 app.secret_key = "magiv"
@@ -21,8 +21,8 @@ db_conn = connections.Connection(
 )
 
 output = {}
-table = 'employee','attendance'
-cursor = db_conn.cursor()
+table = 'employee'
+
 
 date = datetime.utcnow()
 now= date.strftime("%A, %d %B, %Y at %H:%M")
@@ -138,28 +138,30 @@ def getEmp():
 #Get Employee Results
 @app.route("/getemp/results",methods=['GET','POST'])
 def Employee():
-    if request.method=='POST':
-        #Get Employee
-        emp_id = request.form['emp_id']
-        # SELECT STATEMENT TO GET DATA FROM MYSQL
-        GET_SQL = "SELECT `emp_id`,`first_name`, `last_name`, `pri_skill`, `location` FROM table WHERE `emp_id`=%s"
-        cursor = db_conn.cursor()
-        
-        try:
-            cursor.execute(GET_SQL,(emp_id,))
-            # #FETCH ONLY ONE ROWS OUTPUT
-            result = cursor.fetchall()
+    
+     #Get Employee
+     emp_id = request.form['emp_id']
+    # SELECT STATEMENT TO GET DATA FROM MYSQL
+     select_stmt = "SELECT * FROM employee WHERE emp_id = %(emp_id)s"
 
-        except Exception as e:
-            return render_template('GetEmp.html',date=datetime.now())
+     
+     cursor = db_conn.cursor()
         
-        finally:
-            cursor.close()
-    else:
-         result=''
-         return render_template("GetEmp.html",result=result,date=datetime.now())
+     try:
+         cursor.execute(select_stmt, { 'emp_id': int(emp_id) })
+         # #FETCH ONLY ONE ROWS OUTPUT
+         for result in cursor:
+            print(result)
+        
 
-    return render_template("GetEmpOutput.html",result=result,date=datetime.now())
+     except Exception as e:
+        return str(e)
+        
+     finally:
+        cursor.close()
+    
+
+     return render_template("GetEmpOutput.html",result=result,date=datetime.now())
 
 
  #Payroll Calculator  DONE
