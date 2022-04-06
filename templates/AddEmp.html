@@ -32,7 +32,7 @@
 	<!--<button type="submit" formaction="/getemp" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GET EMPLOYEE INFORMATION</button><br><br> -->
 	<div class="form-container">
 		<!-- Add back action="/addemp and id="form-add"" -->
-		<form autocomplete="on" method="POST" enctype="multipart/form-data" class="form-bubble">
+		<form action="/addemp/results" autocomplete="on" method="POST" enctype="multipart/form-data" class="form-bubble">
 			<div class="form-bubble-container">
 				<label for="emp_id">Employee ID</label>
 				<input type="number" name="emp_id" autofocus placeholder="Employee ID">
@@ -62,12 +62,12 @@
 				<label for="emp_image_file">Image</label>
 				<input type="file" name="emp_image_file" class="custom-file-input" autofocus multiple="multiple">
 			</div>
-		</form>
-		<div class="button-container">
-			<a href="/addemp/results">
+			<div class="button-container">
+			
 				<button type="submit" class="form-button">ADD EMPLOYEE</button>
-			</a>
 		</div>
+		</form>
+		
 	</div>
 </body>
 </html>
