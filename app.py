@@ -5,7 +5,6 @@ from pymysql import connections
 from config import *
 import boto3
 
-
 app = Flask(__name__)
 app.secret_key = "magiv"
 
@@ -27,13 +26,7 @@ table = 'employee'
 
 date = datetime.utcnow()
 now= date.strftime("%A, %d %B, %Y at %H:%M")
-headings = ("EmployeeID","First Name","Last Name","Primary Skill","Location","CheckIn")
 
-data = (
-    ("1","Tan","Ming Kit","Sleeping","Malaysia",now),
-    ("2","Tan","Ming Kit","Eating","Malaysia",date),
-    ("3","Tan","Ming Kit","Eating","Malaysia")
-)
 
 #MAIN PAGE
 @app.route("/")
@@ -59,7 +52,7 @@ def Emp():
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,null)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -102,32 +95,42 @@ def Emp():
 #Attendance 
 @app.route("/attendance/")
 def checkIn():
-    
-    return render_template("Attendance.html",date=datetime.now(),headings=headings,data=data)
+    return render_template("Attendance.html",date=datetime.now())
 
-@app.route("/attendance/output")
+@app.route("/attendance/output",methods=['GET','POST'])
 def attendanceOutput():
-    LoginTime = date
-    # sleep(5)
-    CheckOutTime = datetime.now()
 
-    Working_Hour = CheckOutTime - LoginTime
-    
-    
-    if request.method == 'POST':
-        if LoginTime=='':
-            LoginTime = date
-        else:
-            CheckOutTime = date
+    emp_id = request.form['emp_id']
+    # SELECT STATEMENT TO GET DATA FROM MYSQL
+    select_stmt = "SELECT emp_id FROM employee"
 
-        Working_Hour = CheckOutTime - LoginTime
-
-        try:
-            return redirect("/attendance/")
+    cursor = db_conn.cursor()
         
+    try:
+        cursor.execute(select_stmt)
+        # FETCH ONLY ONE ROWS OUTPUT
+        # for result in cursor:
+        #     print(result)
+        LoginTime=datetime.now()
+        formatted_date = LoginTime.strftime('%Y-%m-%d %H:%M:%S')
+        #UPDATE STATEMENT 
+        update_stmt= "UPDATE employee SET check_in =(%(check_in)s) WHERE emp_id = %(emp_id)s"
+        try:
+            cursor.execute(update_stmt, { 'check_in': formatted_date ,'emp_id':int(emp_id)})
         except Exception as e:
-            return str(e)
-    return render_template("AttendanceOutput.html",date=datetime.now(),LoginTime=LoginTime,Checkout=CheckOutTime,TotalWorkingHours=Working_Hour)
+             return str(e)
+                    
+                    
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+        
+    return render_template("AttendanceOutput.html",date=datetime.now(),LoginTime=formatted_date)
+
+   
+    
 
 #Get Employee DONE
 @app.route("/getemp/")

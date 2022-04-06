@@ -30,34 +30,19 @@
 	</div>
 </div>
 	<div class="form-container form-container-get">
-		<form action="/attendance/" autocomplete="on" method="POST" class="form-bubble">
+		<form action="/attendance/output" autocomplete="on" method="POST" class="form-bubble">
 		<div class="form-bubble-container">
 			<label>Employee ID:</label>
 			<input type="number" name="emp_id" autofocus size="40">
 		</div>
-		</form>
 		<div class="button-container">
-		<a href="/attendance/output">
-			<button type="submit" class="form-button">CHECK IN</button>
-		</a>
-		</div>
+			<a href="/attendance/output">
+				<button type="submit" class="form-button">CHECK IN</button>
+			</a>
+			</div>
+		</form>
+		
 	</div>
 	
-	{%if headings%}
-	<table>
-		<tr>
-			{%for header in headings%}
-			<th>{{header}}</th>
-			{%endfor%}
-		</tr>
-		{%for row in data%}
-		<tr>
-			{%for cell in row%}
-			<td>{{cell}}</td>
-		{%endfor%}
-		</tr>
-		{%endfor%}
-	</table>
-	{%endif%}
 </body>
 </html>
