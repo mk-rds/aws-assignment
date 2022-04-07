@@ -1,6 +1,5 @@
-from time import sleep
-from flask import Flask, redirect,render_template,request
-from datetime import datetime, timedelta
+from flask import Flask, render_template,request
+from datetime import datetime
 from pymysql import connections
 from config import *
 import boto3
@@ -24,16 +23,10 @@ output = {}
 table = 'employee'
 
 
-date = datetime.utcnow()
-now= date.strftime("%A, %d %B, %Y at %H:%M")
-
-
 #MAIN PAGE
 @app.route("/")
 def home():
-    date = datetime.now()
-    # now= date.strftime("%A, %d %B, %Y at %X")
-  
+    
     return render_template("home.html",date=datetime.now())
     
 #ADD EMPLOYEE DONE
@@ -51,8 +44,8 @@ def Emp():
     pri_skill = request.form['pri_skill']
     location = request.form['location']
     emp_image_file = request.files['emp_image_file']
-
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,null)"
+    check_in =''
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s,%s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -60,7 +53,7 @@ def Emp():
 
     try:
 
-        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location))
+        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location,check_in))
         db_conn.commit()
         emp_name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
@@ -94,29 +87,76 @@ def Emp():
 
 #Attendance 
 @app.route("/attendance/")
-def checkIn():
+def attendance():
     return render_template("Attendance.html",date=datetime.now())
 
+#CHECK IN BUTTON
+@app.route("/attendance/checkIn",methods=['GET','POST'])
+def checkIn():
+    emp_id = request.form['emp_id']
+
+    #UPDATE STATEMENT
+    update_stmt= "UPDATE employee SET check_in =(%(check_in)s) WHERE emp_id = %(emp_id)s"
+
+    cursor = db_conn.cursor()
+
+    LoginTime = datetime.now()
+    formatted_login = LoginTime.strftime('%Y-%m-%d %H:%M:%S')
+    print ("Check in time:{}",formatted_login)
+
+    try:
+        cursor.execute(update_stmt, { 'check_in': formatted_login ,'emp_id':int(emp_id)})
+        db_conn.commit()
+        print(" Data Updated into MySQL")
+
+    except Exception as e:
+        return str(e)
+
+    finally:
+        cursor.close()
+        
+    return render_template("AttendanceOutput.html",date=datetime.now(),
+    LoginTime=formatted_login)
+
+#CHECK OUT BUTTON
 @app.route("/attendance/output",methods=['GET','POST'])
-def attendanceOutput():
+def checkOut():
 
     emp_id = request.form['emp_id']
     # SELECT STATEMENT TO GET DATA FROM MYSQL
-    select_stmt = "SELECT emp_id FROM employee"
+    select_stmt = "SELECT check_in FROM employee WHERE emp_id = %(emp_id)s"
+    insert_statement="INSERT INTO attendance VALUES (%s,%s,%s,%s)"
+    
 
     cursor = db_conn.cursor()
         
     try:
-        cursor.execute(select_stmt)
-        # FETCH ONLY ONE ROWS OUTPUT
-        # for result in cursor:
-        #     print(result)
-        LoginTime=datetime.now()
-        formatted_date = LoginTime.strftime('%Y-%m-%d %H:%M:%S')
-        #UPDATE STATEMENT 
-        update_stmt= "UPDATE employee SET check_in =(%(check_in)s) WHERE emp_id = %(emp_id)s"
+        # LoginTime=date
+        print('hi,wrong place')
+        cursor.execute(select_stmt,{'emp_id':int(emp_id)})
+        LoginTime= cursor.fetchall()
+        print(LoginTime[0])
+        for row in LoginTime:
+            formatted_login = row
+            print(formatted_login[0])
+        
+
+        CheckoutTime=datetime.now()
+        LogininDate = datetime.strptime(formatted_login[0],'%Y-%m-%d %H:%M:%S')
+        print("NEw format",LogininDate)
+
+      
+        formatted_checkout = CheckoutTime.strftime('%Y-%m-%d %H:%M:%S')
+        Total_Working_Hours = CheckoutTime - LogininDate
+        print(Total_Working_Hours)
+
+         
         try:
-            cursor.execute(update_stmt, { 'check_in': formatted_date ,'emp_id':int(emp_id)})
+            cursor.execute(insert_statement,(emp_id,formatted_login[0],formatted_checkout,Total_Working_Hours))
+            db_conn.commit()
+            print(" Data Inserted into MySQL")
+            
+            
         except Exception as e:
              return str(e)
                     
@@ -127,7 +167,8 @@ def attendanceOutput():
     finally:
         cursor.close()
         
-    return render_template("AttendanceOutput.html",date=datetime.now(),LoginTime=formatted_date)
+    return render_template("AttendanceOutput.html",date=datetime.now(),Checkout = formatted_checkout,
+     LoginTime=formatted_login[0],TotalWorkingHours=Total_Working_Hours)
 
    
     
@@ -176,30 +217,46 @@ def payRoll():
 #NEED MAKE SURE THE INPUT ARE LINKED TO HERE
 @app.route("/payroll/results",methods=['GET','POST'])
 def CalpayRoll():
-    pay = ''
-    working_hour =12
-    hourly_salary=12
-    workday_perweek=12
-    pay = (hourly_salary*working_hour*workday_perweek)
-    annual = pay* 12 
-    Bonus = round(annual*0.03,2)
 
-    if request.method =='POST' and 'hour' in request.form and 'basic' in request.form and 'days'in request.form:
-        print("hi")
-        working_hour = float(request.form.get('hour'))
-        hourly_salary = float(request.form.get('basic'))
-        workday_perweek = float(request.form.get('days'))
+    select_statement="SELECT total_working_hours FROM attendance WHERE emp_id = %(emp_id)s"
+    cursor = db_conn.cursor()
+   
 
-        #Monthly salary = hourly salary * working hour per week * working days per week
+    if 'emp_id' in request.form and 'basic' in request.form and 'days'in request.form:
+        emp_id = int(request.form.get('emp_id'))
+        hourly_salary = int(request.form.get('basic'))
+        workday_perweek = int(request.form.get('days'))
+
+        try:
+            cursor.execute(select_statement,{'emp_id': emp_id})
+            WorkHour= cursor.fetchall()
+            Final=0
+
+            for row in WorkHour:
+                
+                Hour=row[0]
+                NewHour = datetime.strptime(Hour,'%H:%M:%S.%f')
+                
+                total_seconds = NewHour.second + NewHour.minute*60 + NewHour.hour*3600
+                Final += total_seconds
+                Final = Final/3600
+                working_hour= round(Final,2)
+                print(Final)
+
+        except Exception as e:
+            return str(e)
+
+        # #Monthly salary = hourly salary * working hour per week * working days per week
         pay = round((hourly_salary*working_hour*workday_perweek),2)
         annual = float(pay) * 12 
-        # Bonus if 3% of annual salary
+        annual = int(annual)
+            # # Bonus if 3% of annual salary
         Bonus = annual*0.03
     else:
-        print("bye")
+        print("Something Missing")
         return render_template('Payroll.html',date=datetime.now())
 
-    return render_template('PayrollOutput.html',date=datetime.now(), MonthlySalary= pay , AnnualSalary = annual, WorkingHours = working_hour ,Bonus=Bonus)
+    return render_template('PayrollOutput.html',date=datetime.now(),emp_id=emp_id, MonthlySalary= pay , AnnualSalary = annual, WorkingHours = working_hour ,Bonus=Bonus)
 
 # RMB TO CHANGE PORT NUMBER
 if __name__ == "__main__":

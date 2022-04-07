@@ -7,8 +7,8 @@
 <body>
 	<div class="navbar">
 		<div class="navbar-left">
-			<a href="/addemp/">
-				<img src="{{ url_for('static', filename='img/database.png')}}"/>
+			<a href="/">
+				<img src="{{ url_for('static', filename='img/home.png')}}"/>
 			</a>
 		</div>
 		<div class="navbar-middle">
@@ -31,6 +31,10 @@
 </div>
 		<div class="form-container form-container-payroll">
 			<div class="form-bubble">
+				<div class="form-bubble-container form-bubble-container-get">
+					<p>Employee ID </p>
+					<p>{{emp_id}}</p>
+				</div>
 				<div class="form-bubble-container form-bubble-container-get">
 					<p>Working Hours</p>
 					<p>{{WorkingHours}}</p>

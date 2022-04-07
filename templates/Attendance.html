@@ -7,8 +7,8 @@
 <body>
 	<div class="navbar">
 		<div class="navbar-left">
-			<a href="/addemp/">
-				<img src="{{ url_for('static', filename='img/database.png')}}"/>
+			<a href="/">
+				<img src="{{ url_for('static', filename='img/home.png')}}"/>
 			</a>
 		</div>
 		<div class="navbar-middle">
@@ -35,13 +35,15 @@
 			<label>Employee ID:</label>
 			<input type="number" name="emp_id" autofocus size="40">
 		</div>
-		<div class="button-container">
-			<a href="/attendance/output">
-				<button type="submit" class="form-button">CHECK IN</button>
-			</a>
-			</div>
+				<div class="button-container1">
+						<button type="submit" formaction="/attendance/checkIn" class="form-button">CHECK IN</button>
+						<a href="/attendance/output">
+					<button type="submit" class="form-button">CHECK OUT</button>
+				</a>
+					</div>
 		</form>
 		
+	
 	</div>
 	
 </body>

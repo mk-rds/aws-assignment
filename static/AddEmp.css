@@ -89,7 +89,7 @@ input[type=number] {
 	background-color: #eceff4; 
 	border-radius: 15px;
 	align-self: center;
-	padding: 20px;
+	padding: 30px;
 }
 
 .form-bubble {
@@ -162,9 +162,34 @@ input[type=number] {
  	background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
+.button-container1 {
+	position: relative;
+	display: block;
+	justify-content: center;
+	align-self: center;
+	width: auto;
+	background-color: #ffffff;
+	border-radius: 0 0 10px 10px;
+	padding: 10px;
+	margin: auto;
+}
+
+.button-container2 {
+	position: relative;
+	display: block;
+	justify-content: center;
+	align-self: center;
+	width: auto;
+	background-color: #ffffff;
+	border-radius: 0 0 10px 10px;
+	padding: 10px;
+	margin: auto;
+}
+
+
 .button-container {
 	position: relative;
-	display: flex;
+	display: block;
 	justify-content: center;
 	align-self: center;
 	width: auto;
@@ -178,7 +203,7 @@ input[type=number] {
   content: "";
   position: absolute;
   background-color: transparent;
-  left: -30px;
+  left: -20px;
   height: 50px;
   width: 30px;
   border-top-right-radius: 22px;
@@ -194,6 +219,38 @@ input[type=number] {
   width: 30px;
   border-top-left-radius: 22px;
   box-shadow: 0 -20px 0 0 white;
+}
+
+.form-button1{
+	background-color: #0D75FD;
+	border: 20px ;
+	border-radius: 10px;
+	color: white;
+	font-size: 14px;
+	padding: 10px 60px;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+	margin:auto ;
+
+}
+.form-button2{
+	background-color: #0D75FD;
+	border: 20px;
+	border-radius: 10px;
+	color: white;
+	font-size: 14px;
+	padding: 10px 60px;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+	margin-top: 5%;
+	margin-left: 18% ;
+
 }
 
 .form-button {
@@ -213,7 +270,7 @@ input[type=number] {
 /* ADD EMP OUTPUT*/
 
 .form-container-add {
-	height: 30vh;
+	height: 50vh;
 }
 
 .body-container {
@@ -239,7 +296,7 @@ input[type=number] {
 }
 
 .form-container-get {
-	height: 22vh;
+	height: 40vh;
 }
 
 .form-container-get-output {
@@ -251,5 +308,6 @@ input[type=number] {
 }
 
 .form-container-payroll {
-	height: 32vh;
+	height: 35vh;
+
 }

@@ -7,8 +7,8 @@
 <body>
 	<div class="navbar">
 		<div class="navbar-left">
-			<a href="/addemp/">
-				<img src="{{ url_for('static', filename='img/database.png')}}"/>
+			<a href="/">
+				<img src="{{ url_for('static', filename='img/home.png')}}"/>
 			</a>
 		</div>
 		<div class="navbar-middle">
@@ -34,26 +34,21 @@
 		<div class="form-bubble-container">
 			<label>Employee ID:</label>
 			<input type="number" name="emp_id" autofocus size="40">
-			<label>Working Hours Per Week:</label>
-			<input type="number" name="hour" autofocus size="40">
+			<!-- <label>Working Hours Per Week:</label>
+			<input type="number" name="hour" autofocus size="40"> -->
 			<label>Hourly Salary Rate:</label>
 			<input type="number" name="basic" autofocus size="40">
 			<label>Working Day Per Week:</label>
 			<input type="number" name="days" autofocus size="40">
 		</div>
 		
-		</form>
-		{%if Bonus%}
-		<p>Bonus</p>{{Bonus}}
+		<div class="button-container1">
 		
-		{%else%}
-		<p>Nothing</p>
-		{%endif%}
-		<div class="button-container">
-		<a href="/payroll/results">
-			<button type="submit" value="submit" class="form-button">CALCULATE PAYROLL</button>
-		</a>
-		</div>
+				<button type="submit" value="submit" class="form-button2">CALCULATE PAYROLL</button>
+			
+			</div>
+		</form>
+	
 	</div>
 </body>
 </html>

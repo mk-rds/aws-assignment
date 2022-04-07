@@ -7,8 +7,8 @@
 <body>
 	<div class="navbar">
 		<div class="navbar-left">
-			<a href="/addemp/">
-				<img src="{{ url_for('static', filename='img/database.png')}}"/>
+			<a href="/">
+				<img src="{{ url_for('static', filename='img/home.png')}}"/>
 			</a>
 		</div>
 		<div class="navbar-middle">
@@ -34,22 +34,22 @@
             <h1>Welcome to LKT Employee Management System</h1>
             {{ date.strftime("%A, %d %B, %Y at %X") }}
 		</div>
-		<div class="button-container">
+		<div class="button-container2">
 			<a href="/addemp/">
 				<button class="form-button">Add Employee</button>
 			</a>
         </div>
-        <div class="button-container">
+        <div class="button-container2">
             <a href="/getemp/">
                 <button class="form-button">Get Employee</button>
             </a>
         </div>
-        <div class="button-container">
+        <div class="button-container2">
             <a href="/attendance/">
                 <button class="form-button">Attendance</button>
             </a>
         </div>
-        <div class="button-container">
+        <div class="button-container2">
             <a href="/payroll/">
                 <button class="form-button">Payroll Calculator</button>
             </a>
